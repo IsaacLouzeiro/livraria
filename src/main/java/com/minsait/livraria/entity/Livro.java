@@ -17,6 +17,8 @@ public class Livro {
 	
 	private int quantidade;
 	
+	public Livro() {
+	}
 	
 	public Livro(String titulo, int ano, int quantidade) {
 		super();

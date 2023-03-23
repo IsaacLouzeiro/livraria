@@ -29,13 +29,13 @@ public class LivroController {
 		this.livroService = livroService;
 	}
 	
-	@PostMapping
+	@PostMapping("/cadastrar")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Livro cadastraLivro(@Valid @RequestBody Livro livro) {
 		return this.livroService.cadastrarLivro(livro);
 	}
 
-	@GetMapping("/livro")
+	@GetMapping("/listar")
 	public List<Livro> exibirTodosOsLivros() {
 		
 		return livroService.exibirTodosOsLivros();
