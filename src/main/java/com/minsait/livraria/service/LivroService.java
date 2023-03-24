@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.minsait.livraria.entity.Livro;
 import com.minsait.livraria.repository.LivroRepository;
@@ -19,14 +20,21 @@ public class LivroService {
 		this.livroRepository = livroRepository;
 	}
 	
+	// Cadastrar Livro
 	public Livro cadastrarLivro(Livro livro) {
 		return this.livroRepository.save(livro);
 	}
 	
+	// Listar todos os Livros
 	public List<Livro> exibirTodosOsLivros() {
 		List<Livro> livro = new ArrayList<Livro>();
 		livroRepository.findAll().forEach(livro1 -> livro.add(livro1));
 		return livro;
+	}
+	
+	// Achar Livro por ID
+	public Livro exibirLivrosPorId(long id) {
+		return livroRepository.findById(id).get();
 	}
 	
 }

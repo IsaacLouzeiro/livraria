@@ -29,16 +29,24 @@ public class LivroController {
 		this.livroService = livroService;
 	}
 	
+	// Cadastrar livro
 	@PostMapping("/cadastrar")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Livro cadastraLivro(@Valid @RequestBody Livro livro) {
 		return this.livroService.cadastrarLivro(livro);
 	}
 
+	// Listar todos os Livros
 	@GetMapping("/listar")
 	public List<Livro> exibirTodosOsLivros() {
 		
 		return livroService.exibirTodosOsLivros();
+	}
+	
+	// Achar Livro por ID
+	@GetMapping("/listar/{id}")
+	public Livro exibirLivros(@PathVariable("id") long id) {
+		return livroService.exibirLivrosPorId(id);
 	}
 	
 }
