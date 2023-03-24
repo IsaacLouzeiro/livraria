@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,11 +31,18 @@ public class LivroController {
 		this.livroService = livroService;
 	}
 	
-	// Cadastrar livro
+	// Cadastrar Livro
 	@PostMapping("/cadastrar")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Livro cadastraLivro(@Valid @RequestBody Livro livro) {
 		return this.livroService.cadastrarLivro(livro);
+	}
+	
+	// Atualizar ou salvar Livro
+	@PutMapping("/atualizar")
+	public Livro atualizar(@RequestBody Livro livro) {
+		this.livroService.salvarOuAtualizar(livro);
+		return livro;
 	}
 
 	// Listar todos os Livros
@@ -55,5 +63,4 @@ public class LivroController {
 	public void excluirLivros(@PathVariable("id") long id) {
 		this.livroService.excluir(id);
 	}
-	
 }

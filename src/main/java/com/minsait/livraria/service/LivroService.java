@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.minsait.livraria.entity.Livro;
 import com.minsait.livraria.repository.LivroRepository;
@@ -23,6 +22,16 @@ public class LivroService {
 	// Cadastrar Livro
 	public Livro cadastrarLivro(Livro livro) {
 		return this.livroRepository.save(livro);
+	}
+	
+	// Salvando um cadastro especifico utilizando o metodo save() do CrudRepository
+	public void salvarOuAtualizar(Livro livro) {
+		this.livroRepository.save(livro);
+	}
+	
+	// Atualizando um cadastro
+	public void atualizar(Livro livro, long id) {
+		this.livroRepository.save(livro);
 	}
 	
 	// Listar todos os Livros
