@@ -28,13 +28,18 @@ public class LivroService {
 	// Listar todos os Livros
 	public List<Livro> exibirTodosOsLivros() {
 		List<Livro> livro = new ArrayList<Livro>();
-		livroRepository.findAll().forEach(livro1 -> livro.add(livro1));
+		this.livroRepository.findAll().forEach(livro1 -> livro.add(livro1));
 		return livro;
 	}
 	
 	// Achar Livro por ID
 	public Livro exibirLivrosPorId(long id) {
-		return livroRepository.findById(id).get();
+		return this.livroRepository.findById(id).get();
+	}
+	
+	// Excluir Livro por ID
+	public void excluir(long id) {
+		this.livroRepository.deleteById(id);
 	}
 	
 }

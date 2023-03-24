@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,13 +41,19 @@ public class LivroController {
 	@GetMapping("/listar")
 	public List<Livro> exibirTodosOsLivros() {
 		
-		return livroService.exibirTodosOsLivros();
+		return this.livroService.exibirTodosOsLivros();
 	}
 	
 	// Achar Livro por ID
 	@GetMapping("/listar/{id}")
 	public Livro exibirLivros(@PathVariable("id") long id) {
-		return livroService.exibirLivrosPorId(id);
+		return this.livroService.exibirLivrosPorId(id);
+	}
+	
+	// Excluir Livro por ID
+	@DeleteMapping("/excluir/{id}")
+	public void excluirLivros(@PathVariable("id") long id) {
+		this.livroService.excluir(id);
 	}
 	
 }
