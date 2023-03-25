@@ -1,7 +1,8 @@
 package com.minsait.livraria.service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,20 +26,14 @@ public class LivroService {
 	}
 	
 	// Salvando um cadastro especifico utilizando o metodo save() do CrudRepository
-	public void salvarOuAtualizar(Livro livro) {
-		this.livroRepository.save(livro);
-	}
-	
-	// Atualizando um cadastro
-	public void atualizar(Livro livro, long id) {
+	public void atualizar(long id, @Valid Livro livro) {
+		livro.setId(id);
 		this.livroRepository.save(livro);
 	}
 	
 	// Listar todos os Livros
 	public List<Livro> exibirTodosOsLivros() {
-		List<Livro> livro = new ArrayList<Livro>();
-		this.livroRepository.findAll().forEach(livro1 -> livro.add(livro1));
-		return livro;
+		return this.livroRepository.findAll();
 	}
 	
 	// Achar Livro por ID

@@ -32,34 +32,33 @@ public class LivroController {
 	}
 	
 	// Cadastrar Livro
-	@PostMapping("/cadastrar")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Livro cadastraLivro(@Valid @RequestBody Livro livro) {
 		return this.livroService.cadastrarLivro(livro);
 	}
 	
 	// Atualizar ou salvar Livro
-	@PutMapping("/atualizar")
-	public Livro atualizar(@RequestBody Livro livro) {
-		this.livroService.salvarOuAtualizar(livro);
+	@PutMapping("/{id}")
+	public Livro atualizar(@PathVariable long id, @Valid @RequestBody Livro livro) {
+		this.livroService.atualizar(id, livro);
 		return livro;
 	}
 
 	// Listar todos os Livros
-	@GetMapping("/listar")
+	@GetMapping
 	public List<Livro> exibirTodosOsLivros() {
-		
 		return this.livroService.exibirTodosOsLivros();
 	}
 	
 	// Achar Livro por ID
-	@GetMapping("/listar/{id}")
+	@GetMapping("/{id}")
 	public Livro exibirLivros(@PathVariable("id") long id) {
 		return this.livroService.exibirLivrosPorId(id);
 	}
 	
 	// Excluir Livro por ID
-	@DeleteMapping("/excluir/{id}")
+	@DeleteMapping("/{id}")
 	public void excluirLivros(@PathVariable("id") long id) {
 		this.livroService.excluir(id);
 	}
