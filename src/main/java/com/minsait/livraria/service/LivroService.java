@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minsait.livraria.entity.Livro;
+import com.minsait.livraria.exception.LivroNaoEncontradoException;
 import com.minsait.livraria.repository.LivroRepository;
 
 @Service
@@ -17,18 +18,39 @@ public class LivroService {
 
 	@Autowired
 	public LivroService(LivroRepository livroRepository) {
+		
 		this.livroRepository = livroRepository;
+		
 	}
 	
 	// Cadastrar Livro
 	public Livro cadastrarLivro(Livro livro) {
+		
 		return this.livroRepository.save(livro);
+		
 	}
 	
-	// Salvando um cadastro especifico utilizando o metodo save() do CrudRepository
-	public void atualizar(long id, @Valid Livro livro) {
-		livro.setId(id);
-		this.livroRepository.save(livro);
+	// Atualizando Livro
+	public Livro atualizarLivro(long id, @Valid Livro livro) throws LivroNaoEncontradoException {
+		
+		if(this.livroRepository.existsById(id)) {
+			
+			Livro LivroASerAlterado = this.livroRepository.findById(id).get();
+			
+			livro.setId(id);
+			
+			if(livro.getQuantidade() == null) {
+				livro.setQuantidade(LivroASerAlterado.getQuantidade());
+			}
+			
+			if(livro.getAno() == null) {
+				livro.setAno(LivroASerAlterado.getAno());
+			}
+			
+			return this.livroRepository.save(livro);
+		}
+		
+		throw new LivroNaoEncontradoException(id);
 	}
 	
 	// Listar todos os Livros
@@ -37,13 +59,29 @@ public class LivroService {
 	}
 	
 	// Achar Livro por ID
-	public Livro exibirLivrosPorId(long id) {
-		return this.livroRepository.findById(id).get();
+	public Livro exibirLivrosPorId(long id) throws LivroNaoEncontradoException {
+		
+		if(this.livroRepository.existsById(id)) {
+			return this.livroRepository.findById(id).get();	
+		}
+		
+		throw new LivroNaoEncontradoException(id);
+		
 	}
 	
 	// Excluir Livro por ID
-	public void excluir(long id) {
-		this.livroRepository.deleteById(id);
+	public MensagemDeSucesso excluirLivros(long id) throws LivroNaoEncontradoException {
+		
+		if(this.livroRepository.existsById(id)) {
+			this.livroRepository.deleteById(id);
+			
+			MensagemDeSucesso mensagem = new MensagemDeSucesso();
+			mensagem.setMensagem("Deletado com sucesso");
+			return mensagem;
+		}
+		
+		throw new LivroNaoEncontradoException(id);
+		
 	}
 	
 }
