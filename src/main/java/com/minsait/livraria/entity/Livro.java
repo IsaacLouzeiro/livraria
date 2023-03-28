@@ -11,10 +11,11 @@ public class Livro {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@NotEmpty(message = "Titulo nao pode ser nulo.")
 	private String titulo;
+	
 	private Integer ano; 
 	
 	private Integer quantidade;
@@ -23,21 +24,20 @@ public class Livro {
 	}
 	
 
-	public Livro(long id, String titulo, Integer ano, Integer quantidade) {
-		super();
-		this.id = id;
+	public Livro(String titulo, Integer ano, Integer quantidade) {
+		
 		this.titulo = titulo;
 		this.ano = ano;
 		this.quantidade = quantidade;
 	}
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

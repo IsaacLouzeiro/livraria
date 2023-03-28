@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minsait.livraria.dto.LivroDTO;
 import com.minsait.livraria.entity.Livro;
 import com.minsait.livraria.exception.LivroNaoEncontradoException;
 import com.minsait.livraria.service.LivroService;
@@ -42,9 +43,13 @@ public class LivroController {
 	
 	// Atualizar ou salvar Livro
 	@PutMapping("/{id}")
-	public Livro atualizarLivro(@PathVariable long id, @Valid @RequestBody Livro livro) throws LivroNaoEncontradoException {
-		this.livroService.atualizarLivro(id, livro);
-		return livro;
+	public LivroDTO atualizarLivro(@PathVariable Long id, @Valid @RequestBody LivroDTO livro) throws LivroNaoEncontradoException {
+		
+		Livro livroRequest = LivroDTO.retornaLivro(livro);
+		
+		Livro livroAlterado = this.livroService.atualizarLivro(id, livroRequest);
+		
+		return LivroDTO.retornaLivro(livroAlterado);
 	}
 
 	// Listar todos os Livros
@@ -55,14 +60,14 @@ public class LivroController {
 	
 	// Achar Livro por ID
 	@GetMapping("/{id}")
-	public Livro exibirLivros(@PathVariable("id") long id) throws LivroNaoEncontradoException {
+	public Livro exibirLivros(@PathVariable("id") Long id) throws LivroNaoEncontradoException {
 		return this.livroService.exibirLivrosPorId(id);
 	}
 	
 	// Excluir Livro por ID
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public MensagemDeSucesso excluirLivros(@PathVariable("id") long id) throws LivroNaoEncontradoException {
+	public MensagemDeSucesso excluirLivros(@PathVariable("id") Long id) throws LivroNaoEncontradoException {
 		return this.livroService.excluirLivros(id);
 	}
 }

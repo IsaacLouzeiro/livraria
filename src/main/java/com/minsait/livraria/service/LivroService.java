@@ -31,7 +31,7 @@ public class LivroService {
 	}
 	
 	// Atualizando Livro
-	public Livro atualizarLivro(long id, @Valid Livro livro) throws LivroNaoEncontradoException {
+	public Livro atualizarLivro(Long id, @Valid Livro livro) throws LivroNaoEncontradoException {
 		
 		if(this.livroRepository.existsById(id)) {
 			
@@ -59,7 +59,7 @@ public class LivroService {
 	}
 	
 	// Achar Livro por ID
-	public Livro exibirLivrosPorId(long id) throws LivroNaoEncontradoException {
+	public Livro exibirLivrosPorId(Long id) throws LivroNaoEncontradoException {
 		
 		if(this.livroRepository.existsById(id)) {
 			return this.livroRepository.findById(id).get();	
@@ -70,7 +70,7 @@ public class LivroService {
 	}
 	
 	// Excluir Livro por ID
-	public MensagemDeSucesso excluirLivros(long id) throws LivroNaoEncontradoException {
+	public MensagemDeSucesso excluirLivros(Long id) throws LivroNaoEncontradoException {
 		
 		if(this.livroRepository.existsById(id)) {
 			this.livroRepository.deleteById(id);
